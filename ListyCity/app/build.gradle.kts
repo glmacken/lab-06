@@ -27,6 +27,7 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -42,5 +43,6 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
-    implementation(files("C:\\Users\\grace\\AppData\\Local\\Android\\Sdk\\platforms\\android-36\\android.jar"))
+    implementation(files("C:/Users/grace/AppData/Local/Android/Sdk/platforms/android-36/android.jar"))
+    testImplementation(libs.junit)
 }

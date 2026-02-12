@@ -3,7 +3,7 @@ package com.example.listycity;
 /**
  * This is a class that defines a City.
  */
-public class City implements Comparable<Object> {
+public class City implements Comparable<City> {
     private String city;
     private String province;
 
@@ -21,8 +21,8 @@ public class City implements Comparable<Object> {
     }
 
     @Override
-    public int compareTo(Object o) {
-        City city = (City) o;
+    public int compareTo(City other) {
+        City city = (City) other;
         return this.city.compareTo(city.getCityName());
     }
 }

@@ -36,8 +36,7 @@ public class CityListTest {
     @Test
     public void testGetCities() {
         CityList cityList = mockCityList();
-        // This line checks if the first city in the cityList (retrieved by cityList.getCities().get(0))
-        // is the same as the city returned by mockCity()
+        // This line checks if the first city in the cityList is the same as the city returned by mockCity()
         assertEquals(0, mockCity().compareTo(cityList.getCities().get(0)));
         // This pushes down the original city
         City city = new City("Charlottetown", "Prince Edward Island");
@@ -45,5 +44,50 @@ public class CityListTest {
         // Now the original city should be at position 1
         assertEquals(0, city.compareTo(cityList.getCities().get(0)));
         assertEquals(0, mockCity().compareTo(cityList.getCities().get(1)));
+    }
+
+    @Test
+    public void testHasCity() {
+        CityList cityList = mockCityList();
+        City city = new City("Regina", "Saskatchewan");
+
+        assertTrue(cityList.hasCity(cityList.getCities().get(0)));
+        assertFalse(cityList.hasCity(city));
+
+        cityList.add(city);
+        assertTrue(cityList.hasCity(city));
+    }
+
+    @Test
+    public void testDeleteCity() {
+        CityList cityList = mockCityList();
+        City city = new City("Regina", "Saskatchewan");
+        cityList.add(city);
+
+        // Test deletion of city within list
+        cityList.deleteCity(city);
+        assertFalse(cityList.getCities().contains(city));
+        assertEquals(1, cityList.getCities().size());
+
+        // Test attempted deletion of city not in list
+        assertThrows(IllegalArgumentException.class, () -> cityList.deleteCity(city));
+    }
+
+    @Test
+    public void testCountCities() {
+        // Test initial list
+        CityList cityList = mockCityList();
+        assertEquals(1, cityList.getCities().size());
+
+        // Test empty list
+        cityList.deleteCity(cityList.getCities().get(0));
+        assertEquals(0, cityList.countCities());
+
+        // Test list with inserted test values
+        String[] cityNames = {"City1", "City2", "City3"};
+        for (String name : cityNames) {
+            cityList.add(new City(name, ""));
+        }
+        assertEquals(cityNames.length, cityList.countCities());
     }
 }
